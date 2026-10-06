@@ -1,0 +1,20 @@
+{
+  "name": "edulexia",
+  "version": "1.0.0",
+  "description": "EDULEXIA - Dyslexia Learning Support Platform - Screening, Personalized Activities, and Progress Tracking",
+  "scripts": {
+    "dev": "node dev.js",
+    "start": "node dev.js",
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm run dev",
+    "install:all": "cd server && npm install && cd ../client && npm install"
+  },
+  "keywords": [
+    "dyslexia",
+    "accessibility",
+    "learning-support",
+    "screening",
+    "educational-technology"
+  ],
+  "license": "MIT"
+}
