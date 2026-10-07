@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import { AccessibilityProvider } from './context/AccessibilityContext';
 import Navbar from './components/Navbar';
 import AccessibilityDrawer from './components/AccessibilityDrawer';
+import { getUserNickname } from './utils/userUtils';
 
 // Pages
 import Home from './pages/Home';
@@ -81,7 +82,7 @@ function StudentScreeningRoute() {
           </h2>
           <p className="text-sm text-emerald-200/80 leading-relaxed">
             The 7-Stage Screening Assessment is exclusively calibrated for <strong className="text-emerald-300">Student learners</strong>. 
-            You are currently signed in as a <strong className="capitalize text-emerald-400">{user.role}</strong> ({user.name}).
+            You are currently signed in as a <strong className="capitalize text-emerald-400">{user.role}</strong> (@{getUserNickname(user)}).
           </p>
           <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
             <Link

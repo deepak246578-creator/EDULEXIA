@@ -21,6 +21,7 @@ import { api } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import SpeechReader from '../components/SpeechReader';
 import MedicalDisclaimerBanner from '../components/MedicalDisclaimerBanner';
+import { getUserNickname } from '../utils/userUtils';
 
 export default function TeacherPortal() {
   const { user, switchRole, loading: authLoading } = useAuth();
@@ -166,7 +167,7 @@ export default function TeacherPortal() {
                 return (
                   <tr key={st.id} className="hover:bg-[#08120c] transition-colors">
                     <td className="py-4 px-4 font-bold text-white">
-                      {st.name}
+                      {getUserNickname(st)}
                     </td>
                     <td className="py-4 px-3">
                       <span className="font-extrabold text-xs text-emerald-300 bg-[#070e0a] px-2.5 py-1 rounded-lg border border-emerald-800">
@@ -248,7 +249,7 @@ export default function TeacherPortal() {
                   Individual Student Profile
                 </span>
                 <h3 className="text-2xl font-black text-white mt-1">
-                  {studentDetail.student.name}
+                  {getUserNickname(studentDetail.student)}
                 </h3>
                 <p className="text-xs text-emerald-400/70">
                   Current Track: Level {studentDetail.profile?.learningLevel || 1} • {studentDetail.profile?.starsCount || 0} Stars

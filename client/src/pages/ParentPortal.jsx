@@ -20,6 +20,7 @@ import { api } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import SpeechReader from '../components/SpeechReader';
 import MedicalDisclaimerBanner from '../components/MedicalDisclaimerBanner';
+import { getUserNickname } from '../utils/userUtils';
 
 export default function ParentPortal() {
   const { user, switchRole, loading: authLoading } = useAuth();
@@ -72,7 +73,7 @@ export default function ParentPortal() {
             <span>Parent Support Portal</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-black">
-            Learning Progress for {student.name || 'Your Child'}
+            Learning Progress for {getUserNickname(student) || 'Your Child'}
           </h1>
           <p className="text-emerald-950 font-semibold text-sm sm:text-base max-w-xl">
             Supportive, non-stigmatizing insights into your child's phonics development, 
@@ -80,7 +81,7 @@ export default function ParentPortal() {
           </p>
           <div className="pt-1">
             <SpeechReader 
-              text={`Parent progress overview for ${student.name || 'your child'}. Reading level is currently Level ${profile.learningLevel || 2}.`} 
+              text={`Parent progress overview for ${getUserNickname(student) || 'your child'}. Reading level is currently Level ${profile.learningLevel || 2}.`} 
               label="Listen to summary" 
             />
           </div>

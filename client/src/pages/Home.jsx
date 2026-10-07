@@ -93,7 +93,7 @@ export default function Home() {
               onClick={() => handleStartRole('student', '/screening')}
               className="mt-6 w-full py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
-              <span>Start as Leo (Student)</span>
+              <span>Enter as Student (Start Screening)</span>
               <ArrowRight className="w-4 h-4 stroke-[3]" />
             </button>
           </div>
@@ -115,7 +115,7 @@ export default function Home() {
               onClick={() => handleStartRole('parent', '/parent')}
               className="mt-6 w-full py-3.5 rounded-xl bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-800 text-emerald-200 font-bold text-sm shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
-              <span>Enter as Sarah (Parent)</span>
+              <span>Enter Parent Portal</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -137,7 +137,7 @@ export default function Home() {
               onClick={() => handleStartRole('teacher', '/teacher')}
               className="mt-6 w-full py-3.5 rounded-xl bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-800 text-emerald-200 font-bold text-sm shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
-              <span>Enter as Ms. Vance (Teacher)</span>
+              <span>Enter Educator Portal</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>

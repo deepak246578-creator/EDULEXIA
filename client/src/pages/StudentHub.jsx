@@ -19,6 +19,7 @@ import { api } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import SpeechReader from '../components/SpeechReader';
 import MedicalDisclaimerBanner from '../components/MedicalDisclaimerBanner';
+import { getUserNickname } from '../utils/userUtils';
 
 export default function StudentHub() {
   const { user, profile, switchRole, loading: authLoading } = useAuth();
@@ -80,7 +81,7 @@ export default function StudentHub() {
           </div>
 
           <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-black">
-            Welcome back, {user?.name || 'Reader'}! 🌟
+            Welcome back, {getUserNickname(user)}! 🌟
           </h1>
           <p className="text-emerald-950 font-semibold text-sm sm:text-base max-w-xl">
             You are reading at <span className="font-black underline decoration-black">Level {currentLevel}</span>. 
@@ -88,7 +89,7 @@ export default function StudentHub() {
           </p>
           <div className="pt-1">
             <SpeechReader 
-              text={`Welcome back, ${user?.name || 'Reader'}! You are currently practicing at Level ${currentLevel}. You have collected ${starsCount} stars and a ${streakDays} day practice streak.`} 
+              text={`Welcome back, ${getUserNickname(user)}! You are currently practicing at Level ${currentLevel}. You have collected ${starsCount} stars and a ${streakDays} day practice streak.`} 
               label="Listen to dashboard greeting" 
             />
           </div>

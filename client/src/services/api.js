@@ -2,8 +2,22 @@
  * FRONTEND API SERVICE
  */
 
-const BACKEND_URL = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
-const API_BASE = `${BACKEND_URL}/api`;
+const getBackendUrl = () => {
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL.replace(/\/$/, '');
+  }
+  // When running in browser on localhost or 127.0.0.1, always point to local backend port 5000
+  if (typeof window !== 'undefined') {
+    const host = window.location.hostname;
+    if (host === 'localhost' || host === '127.0.0.1') {
+      return 'http://localhost:5000';
+    }
+  }
+  return '';
+};
+
+const BACKEND_URL = getBackendUrl();
+const API_BASE = BACKEND_URL ? `${BACKEND_URL}/api` : '/api';
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem('dyslexia_auth_token');
@@ -15,11 +29,11 @@ const getAuthHeaders = () => {
 
 export const api = {
   // Auth
-  async login(email, password) {
+  async login(email, password, role) {
     const res = await fetch(`${API_BASE}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ email, password, role })
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || 'Login failed');
@@ -45,6 +59,39 @@ export const api = {
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || 'Failed to switch demo role');
+    return data;
+  },
+
+  async loginWithGoogle({ credential, email, name, role = 'student' }) {
+    const res = await fetch(`${API_BASE}/auth/google`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ credential, email, name, role })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Google authentication failed');
+    return data;
+  },
+
+  async requestPhoneVerification(email, role = 'student') {
+    const res = await fetch(`${API_BASE}/auth/phone-request`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, role })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to dispatch phone verification');
+    return data;
+  },
+
+  async verifyPhoneRequest(email, role = 'student', code = null, approveDirect = false) {
+    const res = await fetch(`${API_BASE}/auth/phone-verify`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, role, code, approveDirect })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to verify phone prompt');
     return data;
   },
 

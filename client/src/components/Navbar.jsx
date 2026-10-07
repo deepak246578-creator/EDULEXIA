@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useAccessibility } from '../context/AccessibilityContext';
+import { getUserNickname } from '../utils/userUtils';
 
 export default function Navbar() {
   const { user, profile, switchRole, logout } = useAuth();
@@ -55,6 +56,8 @@ export default function Navbar() {
     }
     return true;
   });
+
+  const currentNickname = getUserNickname(user);
 
   return (
     <nav className="sticky top-0 z-40 bg-[#070a08]/95 backdrop-blur-md border-b border-emerald-900/60 transition-colors shadow-md font-jakarta">
@@ -97,12 +100,12 @@ export default function Navbar() {
 
           {/* Right Action Toolbar */}
           <div className="flex items-center gap-2.5">
-            {/* Quick Demo Switcher */}
+            {/* User Profile / Nickname Trigger */}
             <div className="relative">
               <button
                 onClick={() => setRoleDropdownOpen(!roleDropdownOpen)}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold border border-emerald-800/80 bg-[#0e1611] text-emerald-300 hover:border-emerald-500 transition-colors shadow-xs font-jakarta cursor-pointer"
-                title="Switch active role profile"
+                className="flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold border border-emerald-800/80 bg-[#0e1611] text-emerald-300 hover:border-emerald-500 transition-colors shadow-xs font-jakarta cursor-pointer"
+                title="Account menu"
               >
                 {user?.role === 'parent' ? (
                   <Users className="w-3.5 h-3.5 text-teal-400" />
@@ -111,14 +114,19 @@ export default function Navbar() {
                 ) : (
                   <User className="w-3.5 h-3.5 text-emerald-400" />
                 )}
-                <span className="capitalize">{user?.name?.split(' ')[0] || 'User'} ({user?.role || 'Guest'})</span>
+                <span className="font-extrabold text-white">
+                  {currentNickname}
+                </span>
+                <span className="text-[10px] uppercase px-1.5 py-0.2 rounded-md bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                  {user?.role || 'Guest'}
+                </span>
                 <ChevronDown className="w-3 h-3 text-emerald-400" />
               </button>
 
               {roleDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-60 rounded-2xl bg-[#0d1611] border border-emerald-800 shadow-2xl py-2 z-50 animate-in fade-in slide-in-from-top-2 glow-emerald">
+                <div className="absolute right-0 mt-2 w-64 rounded-2xl bg-[#0d1611] border border-emerald-800 shadow-2xl py-2 z-50 animate-in fade-in slide-in-from-top-2 glow-emerald">
                   <div className="px-3.5 py-1.5 text-[11px] font-black text-emerald-400 uppercase tracking-wider">
-                    Demo Role Switcher
+                    Role & Persona Switcher
                   </div>
                   <button
                     onClick={() => handleRoleChange('student')}
@@ -126,7 +134,7 @@ export default function Navbar() {
                   >
                     <span className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                      Leo Martin (Student)
+                      Student Profile
                     </span>
                     {user?.role === 'student' && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />}
                   </button>
@@ -136,7 +144,7 @@ export default function Navbar() {
                   >
                     <span className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-teal-400" />
-                      Sarah Martin (Parent)
+                      Parent Profile
                     </span>
                     {user?.role === 'parent' && <CheckCircle2 className="w-3.5 h-3.5 text-teal-400" />}
                   </button>
@@ -146,7 +154,7 @@ export default function Navbar() {
                   >
                     <span className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-cyan-400" />
-                      Ms. Vance (Teacher)
+                      Educator Profile
                     </span>
                     {user?.role === 'teacher' && <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400" />}
                   </button>
@@ -156,7 +164,7 @@ export default function Navbar() {
                     className="w-full px-3.5 py-2 text-left text-xs font-bold hover:bg-emerald-950/80 text-emerald-300 flex items-center gap-2 cursor-pointer"
                   >
                     <User className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>Sign In with Custom Account</span>
+                    <span>Sign In with Another ID / Gmail</span>
                   </button>
                   {user && (
                     <button

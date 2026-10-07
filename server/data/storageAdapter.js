@@ -115,11 +115,14 @@ class StorageAdapter {
   }
 
   createUser(userData) {
+    const rawEmail = (userData.email || '').toLowerCase().trim();
+    const nickname = userData.nickname || userData.name || (rawEmail ? rawEmail.split('@')[0] : 'user');
     const newUser = {
       id: userData.id || `user-${uuidv4()}`,
-      name: userData.name,
-      email: userData.email.toLowerCase(),
-      passwordHash: userData.passwordHash,
+      name: nickname,
+      nickname: nickname,
+      email: rawEmail,
+      passwordHash: userData.passwordHash || '',
       role: userData.role || 'student',
       studentId: userData.studentId || null,
       authorizedStudentIds: userData.authorizedStudentIds || [],
@@ -134,11 +137,12 @@ class StorageAdapter {
         starsCount: 0,
         streakDays: 1,
         preferences: {
-          fontSize: 18,
+          fontSize: 17,
           letterSpacing: 'wide',
           lineSpacing: 'relaxed',
-          fontFamily: 'OpenDyslexic',
-          colorTheme: 'cream'
+          fontFamily: 'Plus Jakarta Sans',
+          colorTheme: 'green-black',
+          ttsSpeed: 1.0
         }
       });
     }

@@ -17,7 +17,8 @@ const DEMO_PASSWORD_HASH = '$2a$10$tZ27d1F6Ua85iF7e07PZueYV20h3G9tVjZ7ZcK43E9eTz
 const seedUsers = [
   {
     id: 'user-student-1',
-    name: 'Leo Martin',
+    name: 'student',
+    nickname: 'student',
     email: 'student@example.com',
     passwordHash: DEMO_PASSWORD_HASH,
     role: 'student',
@@ -25,7 +26,8 @@ const seedUsers = [
   },
   {
     id: 'user-parent-1',
-    name: 'Sarah Martin (Parent)',
+    name: 'parent',
+    nickname: 'parent',
     email: 'parent@example.com',
     passwordHash: DEMO_PASSWORD_HASH,
     role: 'parent',
@@ -34,7 +36,8 @@ const seedUsers = [
   },
   {
     id: 'user-teacher-1',
-    name: 'Ms. Eleanor Vance (Teacher)',
+    name: 'teacher',
+    nickname: 'teacher',
     email: 'teacher@example.com',
     passwordHash: DEMO_PASSWORD_HASH,
     role: 'teacher',
